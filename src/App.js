@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Header from './components/Header.js'
+import InputBox from './components/InputBox.js'
+import GoodRobot from './components/GoodRobot.js'
+import BadRobot from './components/BadRobot.js'
+import KanyeRobot from './components/KanyeRobot.js'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            name : "",
+            blab : ""
+        }
+    }
+    handleChange = (e) => {
+        this.setState({ name: e.target.value})
+        let blabArr = ["B","L","A"]
+        let newBlab = e.target.value.split("")
+        newBlab = newBlab.map((value, index) => {
+            return blabArr[index%3]
+        })
+        this.setState({blab: newBlab.join("")})
+
+
+    }
+
+
+    render(){
+        return(
+            <div>
+            < Header />
+            < InputBox name={ this.state.name } handleChange = { this.handleChange }/>
+            <GoodRobot name={ this.state.name}/>
+            <BadRobot blab={ this.state.blab }/>
+            <KanyeRobot name={ this.state.name}/>
+
+                </div>
+        )
+    }
 }
 
 export default App;
